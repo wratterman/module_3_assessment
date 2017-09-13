@@ -6,10 +6,14 @@ describe StoreService do
       zip = "80202"
 
       raw_stores = StoreService.get_nearby_stores(zip)
-      raw_store  = raw_stores.first
+      raw_store  = raw_stores[:stores].first
+      expect(raw_stores).to be_a(Hash)
 
-      expect(raw_stores.count).to eq(17)
-      expect(raw_stores).to be_a(Array)
+      expect(raw_stores).to have_key(:total)
+      expect(raw_stores[:total]).to be_a(Integer)
+      expect(raw_stores[:total]).to eq(17)
+
+      expect(raw_stores).to have_key(:stores)
 
       expect(raw_store).to have_key(:longName)
       expect(raw_store[:longName]).to be_a(String)
@@ -31,13 +35,13 @@ describe StoreService do
       zip = "90210"
 
       raw_stores = StoreService.get_nearby_stores(zip)
-      raw_store  = raw_stores.first
+      raw_store  = raw_stores[:stores].first
 
-      expect(raw_stores.count).to eq(20)
-      expect(raw_stores).to be_a(Array)
+      expect(raw_stores).to be_a(Hash)
 
-      expect(raw_store).to have_key(:longName)
-      expect(raw_store[:longName]).to be_a(String)
+      expect(raw_stores).to have_key(:total)
+      expect(raw_stores[:total]).to be_a(Integer)
+      expect(raw_stores[:total]).to eq(44)
 
       expect(raw_store).to have_key(:city)
       expect(raw_store[:city]).to be_a(String)
