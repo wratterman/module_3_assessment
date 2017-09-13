@@ -17,6 +17,7 @@ gem "rspec-rails"
 gem "faraday"
 gem "figaro"
 gem "factory_girl_rails"
+gem 'active_model_serializers', '~> 0.10.0'
 
 
 group :development do
