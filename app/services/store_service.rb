@@ -4,7 +4,7 @@ class StoreService
     @base   = "https://api.bestbuy.com/v1/stores(area("
     @key    = ENV["API_KEY"]
     @zip    = zip
-    @params = ",25))?format=json&show=longName,city,distance,phone,storeType&"
+    @params = ",25))?format=json&#{show_params}&#{page_size}&"
   end
 
   def self.get_nearby_stores(zip)
@@ -22,5 +22,13 @@ class StoreService
   def get_url(url)
     response = Faraday.get(url)
     JSON.parse(response.body, symbolize_names: true)[:stores]
+  end
+
+  def show_params
+    "show=longName,city,distance,phone,storeType"
+  end
+
+  def page_size
+    "pageSize=20"
   end
 end

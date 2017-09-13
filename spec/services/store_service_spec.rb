@@ -9,9 +9,7 @@ describe StoreService do
       raw_store  = raw_stores.first
 
       expect(raw_stores.count).to eq(17)
-
-      expect(raw_stores).to have_key(:stores)
-      expect(raw_stores[:stores]).to be_a(Array)
+      expect(raw_stores).to be_a(Array)
 
       expect(raw_store).to have_key(:longName)
       expect(raw_store[:longName]).to be_a(String)
@@ -20,7 +18,7 @@ describe StoreService do
       expect(raw_store[:city]).to be_a(String)
 
       expect(raw_store).to have_key(:distance)
-      expect(raw_store[:distance]).to be_a(Integer)
+      expect(raw_store[:distance]).to be_a(Float)
 
       expect(raw_store).to have_key(:storeType)
       expect(raw_store[:storeType]).to be_a(String)
