@@ -25,9 +25,10 @@ describe "Items API" do
 
   it "gets a specfic item with a 200 response" do
     item1 = create(:item)
-    item2 = create(:item, name: "Item2")
+    item2 = Item.create(name: "Item2", description: "Desc 2",
+                        image_url: "iamge2.jpg")
 
-    get "api/v1/items/#{item1.id}"
+    get "/api/v1/items/#{item1.id}"
 
     expect(response).to be_success
     expect(response.status).to eq(200)
@@ -46,7 +47,7 @@ describe "Items API" do
     expect(raw_item[:image_url]).to eq(item1.image_url)
     expect(raw_item[:image_url]).to_not eq(item2.image_url)
 
-    get "api/v1/items/#{item2.id}"
+    get "/api/v1/items/#{item2.id}"
 
     expect(response).to be_success
     expect(response.status).to eq(200)
@@ -64,6 +65,17 @@ describe "Items API" do
 
     expect(raw_item[:image_url]).to eq(item2.image_url)
     expect(raw_item[:image_url]).to_not eq(item1.image_url)
+  end
+
+  it "deletes a specfic item with a 204 response" do
+    item_id = create(:item).id
+    expect(Item.count).to eq(1)
+
+    delete "/api/v1/items/#{item_id}"
+
+    expect(response).to be_success
+    expect(response.status).to eq(204)
+    expect(Item.count).to eq(0)
   end
 end
 
