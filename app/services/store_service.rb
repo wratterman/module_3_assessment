@@ -4,7 +4,7 @@ class StoreService
     @base   = "https://api.bestbuy.com/v1/stores(area("
     @key    = ENV["API_KEY"]
     @zip    = zip
-    @params = ",25))?format=json&#{show_params}&"
+    @params = ",25))?format=json&#{show_params}&#{page_size}&"
   end
 
   def self.get_nearby_stores(zip)
@@ -26,5 +26,9 @@ class StoreService
 
   def show_params
     "show=longName,city,distance,phone,storeType"
+  end
+
+  def page_size
+    "pageSize=10"
   end
 end
