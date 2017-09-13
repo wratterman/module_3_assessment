@@ -3,9 +3,9 @@ require 'rails_helper'
 describe StoreService do
   context "class methods" do
     it "returns the stores within 25 miles of provided zip" do
-      zip = "80209"
+      zip = "80202"
 
-      raw_stores = StoreService.find_by(zip)
+      raw_stores = StoreService.get_nearby_stores(zip)
       raw_store  = raw_stores.first
 
       expect(raw_stores.count).to eq(17)
