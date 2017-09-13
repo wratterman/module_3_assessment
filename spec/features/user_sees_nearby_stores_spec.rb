@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.feature "user can search a nearby stores by zip" do
   it "user sees all stores within 25 miles of zip" do
     visit "/"
-
-    fill_in :zipcode, with: "80202"
+    zip = ["80202", "80122", "80209"].sample
+    fill_in :zipcode, with: zip
     click_on "Submit"
 
     expect(current_path).to eq("/search")
