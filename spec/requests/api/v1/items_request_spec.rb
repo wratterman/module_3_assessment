@@ -81,7 +81,7 @@ describe "Items API" do
   it "creates a new item with a 201 response" do
     expect(Item.count).to eq(0)
 
-    get "/api/v1/items?name=Joe&description=cool&image_url=abc.com"
+    post "/api/v1/items?name=Joe&description=cool&image_url=abc.com"
 
     expect(response).to be_success
     expect(response.status).to eq(201)
@@ -90,12 +90,12 @@ describe "Items API" do
     new_item = JSON.parse(response.body, symbolize_names: true)
 
     expect(new_item[:name]).to eq("Joe")
-    expect(new_item[:name]).to eq(Destination.last.name)
+    expect(new_item[:name]).to eq(Item.last.name)
     expect(new_item[:description]).to eq("cool")
-    expect(new_item[:description]).to eq(Destination.last.description)
+    expect(new_item[:description]).to eq(Item.last.description)
     expect(new_item[:image_url]).to eq("abc.com")
-    expect(new_item[:image_url]).to eq(Destination.last.image_url)
-    expect(new_item[:id]).to eq(Destination.last.id)
+    expect(new_item[:image_url]).to eq(Item.last.image_url)
+    expect(new_item[:id]).to eq(Item.last.id)
   end
 end
 
