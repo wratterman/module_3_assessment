@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 describe "Items API" do
-  it "sends a list of items with JSON 200 respons" do
+  it "gets a list of items with 200 response" do
     item1 = create(:item)
-    item2 = create(:item, name: "Item2")
+    item2 = Item.create(name: "Item2", description: "Desc 2",
+                        image_url: "iamge2.jpg")
 
     get "/api/v1/items"
 
@@ -13,7 +14,56 @@ describe "Items API" do
     raw_items = JSON.parse(response.body, symbolize_names: true)
 
     expect(raw_items.first[:id]).to eq(item1.id)
+    expect(raw_items.first[:name]).to eq(item1.name)
+    expect(raw_items.first[:description]).to eq(item1.description)
+    expect(raw_items.first[:image_url]).to eq(item1.image_url)
     expect(raw_items.last[:id]).to eq(item2.id)
+    expect(raw_items.last[:name]).to eq(item2.name)
+    expect(raw_items.last[:description]).to eq(item2.description)
+    expect(raw_items.last[:image_url]).to eq(item2.image_url)
+  end
+
+  it "gets a specfic item with a 200 response" do
+    item1 = create(:item)
+    item2 = create(:item, name: "Item2")
+
+    get "api/v1/items/#{item1.id}"
+
+    expect(response).to be_success
+    expect(response.status).to eq(200)
+
+    raw_item = JSON.parse(response.body, symbolize_names: true)
+
+    expect(raw_item[:id]).to eq(item1.id)
+    expect(raw_item[:id]).to_not eq(item2.id)
+
+    expect(raw_item[:name]).to eq(item1.name)
+    expect(raw_item[:name]).to_not eq(item2.name)
+
+    expect(raw_item[:description]).to eq(item1.description)
+    expect(raw_item[:description]).to_not eq(item2.description)
+
+    expect(raw_item[:image_url]).to eq(item1.image_url)
+    expect(raw_item[:image_url]).to_not eq(item2.image_url)
+
+    get "api/v1/items/#{item2.id}"
+
+    expect(response).to be_success
+    expect(response.status).to eq(200)
+
+    raw_item = JSON.parse(response.body, symbolize_names: true)
+
+    expect(raw_item[:id]).to eq(item2.id)
+    expect(raw_item[:id]).to_not eq(item1.id)
+
+    expect(raw_item[:name]).to eq(item2.name)
+    expect(raw_item[:name]).to_not eq(item1.name)
+
+    expect(raw_item[:description]).to eq(item2.description)
+    expect(raw_item[:description]).to_not eq(item1.description)
+
+    expect(raw_item[:image_url]).to eq(item2.image_url)
+    expect(raw_item[:image_url]).to_not eq(item1.image_url)
   end
 end
 
