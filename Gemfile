@@ -18,7 +18,7 @@ gem "faraday"
 gem "figaro"
 gem "factory_girl_rails"
 gem 'active_model_serializers', '~> 0.10.0'
-
+gem 'will_paginate', '~> 3.1.0'
 
 group :development do
   gem "spring"
