@@ -1,10 +1,20 @@
 <h3 class="num_stores"> <%= @stores.count%> Total Stores</h3>
 <% @stores.each do |store| %>
   <ul class="store">
-    <li class="name"><%= store.name%></li>
-    <li class="city"><%= store.city%></li>
-    <li class="distance"><%= store.distance%></li>
-    <li class="phone_number"><%= store.phone_number%></li>
-    <li class="store_type"><%= store.store_type%></li>
+    <li class="name">
+      <strong>Store: </strong><%= store.name%>
+    </li>
+    <li class="city">
+      <strong>City: </strong><%= store.city%>
+    </li>
+    <li class="distance">
+      <strong>Distance: </strong><%= store.distance%>
+    </li>
+    <li class="phone_number">
+      <strong>Phone: </strong><%= store.phone_number%>
+    </li>
+    <li class="store_type">
+      <strong>Store Type: </strong><%= store.store_type%>
+    </li>
   </ul>
 <% end %>
