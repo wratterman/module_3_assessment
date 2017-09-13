@@ -7,8 +7,8 @@ describe "Items API" do
 
     get "/api/v1/items"
 
-    expect(response).to have_status_code(:ok)
     expect(response).to be_success
+    expect(response.status).to eq(200)
 
     raw_items = JSON.parse(response.body, symbolize_names: true)
 
